@@ -29,13 +29,6 @@ class jupyterhub::base(
         mode   => '0700',
     }
 
-    file { '/usr/local/sbin/install-jupyterhub':
-        source => 'puppet:///modules/jupyterhub/install-jupyterhub.bash',
-        owner  => 'root',
-        group  => 'root',
-        mode   => '0555',
-    }
-
     # nchp packages
     package { [
         'nginx-extras',
