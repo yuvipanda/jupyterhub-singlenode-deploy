@@ -8,6 +8,8 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/xenial64"
 
+  config.vm.provision "shell", inline: "apt-get install --yes puppet"
+
   config.vm.provision "puppet" do |puppet|
     puppet.module_path = "modules"
   end
