@@ -1,0 +1,3 @@
+Simple wrapper to make writing systemd unit files easier.
+
+A simplified version of https://github.com/camptocamp/puppet-systemd
