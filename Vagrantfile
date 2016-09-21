@@ -11,7 +11,16 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: "apt-get install --yes puppet"
 
   config.vm.provision "puppet" do |puppet|
-    puppet.module_path = "modules"
+    puppet.module_path = []
+    puppet.facter = {
+      "puppetdir" => "/vagrant"
+    }
+    puppet.options = [
+      '--verbose',
+      '--modulepath', '/vagrant/modules',
+      '--hiera_config', '/vagrant/hiera.yaml',
+      '--logdest', 'console'
+    ]
   end
 
   config.vm.network "forwarded_port", guest: 8000, host: 8000

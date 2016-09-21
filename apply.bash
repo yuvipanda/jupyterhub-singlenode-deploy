@@ -14,4 +14,5 @@ if ! /usr/bin/which puppet > /dev/null; then
 fi
 
 DIRNAME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-puppet apply --modulepath="${DIRNAME}/modules" "${DIRNAME}/manifests/default.pp"
+
+FACTER_puppetdir="${DIRNAME}" puppet apply --hiera_config="${DIRNAME}/hiera.yaml" --modulepath="${DIRNAME}/modules" "${DIRNAME}/manifests/default.pp"

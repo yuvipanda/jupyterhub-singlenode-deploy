@@ -1,0 +1,8 @@
+:backends:
+  - yaml
+:yaml:
+  :datadir: "%{::puppetdir}/hieradata"
+:hierarchy:
+  - common
+  - "host/%{::fqdn}"
+:logger: console
