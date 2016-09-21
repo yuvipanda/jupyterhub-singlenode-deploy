@@ -30,6 +30,14 @@ This deployment supports the following features in a very composable, pick what 
 
 Note that most of these features aren't implemented yet. We will be making tagged releases of this repository over time, and migration paths will always be available.
 
+## What this is not? ##
+
+We will try to keep this as small and self contained and possible, without letting too much feature creep in. Having a list of things this will *not* be is often useful, so this is a non-exhaustive list.
+
+1. Will not support multiple node jupyterhub services. Those have inherently different challenges, and attempting to solve both in the same way ends up with a solution that doesn't help either.
+2. Will not be super specific to one install or environment. This means we can't rely on running on one particular cloud provider or one university's setup.
+3. Will not support all possible spawners. Will need to restrict them to a subset that has minimal overlap, and can be supported by the community at large.
+
 ## How? ##
 
 Right now, you can check it out by doing the following:
