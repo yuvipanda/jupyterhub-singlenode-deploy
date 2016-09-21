@@ -4,4 +4,5 @@ node default {
     jupyterhub::spawner::simple { 'test': }
 
     include localaccounts
+    include conda::installer
 }
