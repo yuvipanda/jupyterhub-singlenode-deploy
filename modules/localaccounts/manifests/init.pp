@@ -33,7 +33,9 @@ class localaccounts(
     }
 
     user { $regular_users:
-        groups => $group
+        ensure     => present,
+        managehome => true,
+        groups     => $group
     }
 
     user { $root_users:
