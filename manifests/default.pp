@@ -3,6 +3,8 @@ node default {
     jupyterhub::authenticator::dummy { 'test': }
     jupyterhub::spawner::simple { 'test': }
 
-    include localaccounts
+    class { 'localaccounts':
+        userinstall => 'conda',
+    }
     include conda::installer
 }

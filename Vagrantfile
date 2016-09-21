@@ -19,7 +19,8 @@ Vagrant.configure(2) do |config|
       '--verbose',
       '--modulepath', '/vagrant/modules',
       '--hiera_config', '/vagrant/hiera.yaml',
-      '--logdest', 'console'
+      '--logdest', 'console',
+      '--parser', 'future'
     ]
   end
 

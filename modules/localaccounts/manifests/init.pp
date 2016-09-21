@@ -7,14 +7,21 @@
 #
 # It also provides roots with passwordless sudo.
 #
+# It can also install conda for all of the users when creating them.
+#
 # FIXME: Find a way to get rid of accounts when they are no longer in use.
 # == Parameters
 #
 # [*group*]
 #  Group to add all users to. Useful when there are users managed via
 #  other means on the system.
+#
+# [*userinstall*]
+#  What to install for each user account. Options are 'conda' or undef.
+#  FIXME: Add virtualenv
 class localaccounts(
-    $group = 'jovian'
+    $group = 'jovian',
+    $userinstall = undef,
 ) {
 
     $regular_users = hiera('accounts::users', [])
@@ -41,5 +48,10 @@ class localaccounts(
     user { $root_users:
         groups => [$group, 'sudo'],
     }
- 
+
+    if $userinstall == 'conda' {
+        $conda_paths = map($regular_users + $root_users) |$u| { "/home/${u}/conda"}
+
+        conda::install { $conda_paths: }
+    }
 }

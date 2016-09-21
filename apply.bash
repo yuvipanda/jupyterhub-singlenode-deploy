@@ -15,4 +15,4 @@ fi
 
 DIRNAME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-FACTER_puppetdir="${DIRNAME}" puppet apply --hiera_config="${DIRNAME}/hiera.yaml" --modulepath="${DIRNAME}/modules" "${DIRNAME}/manifests/default.pp"
+FACTER_puppetdir="${DIRNAME}" puppet apply --parser=future --hiera_config="${DIRNAME}/hiera.yaml" --modulepath="${DIRNAME}/modules" "${DIRNAME}/manifests/default.pp"
