@@ -1,0 +1,11 @@
+# Sample YAML file for configuring this JupyterHub deployment!
+
+# All non-root user accounts. These people will be able to login to
+# JupyterHub using the configured authenticator.
+accounts::users:
+  - aculich
+# All user accounts with root sudo privs. These people will be able to
+# execute any commands as root, in addition to being able to login to
+# JupyterHub
+accounts::roots:
+  - yuvipanda
