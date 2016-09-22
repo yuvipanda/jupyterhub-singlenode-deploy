@@ -6,19 +6,21 @@
 # to upgrade conda, they should do so themselves.
 # == Parameters
 #
-# [*prefix*]
-#  Path in which to install conda. Must not already exist.
-define conda::install(
-    $prefix = $name,
+# [*user*]
+#  User in whose homedir to install conda.
+define conda::userinstall(
+    $user = $name,
 ) {
     require ::conda::installer
 
     $installer_path = $::conda::installer::path
+    $prefix = "/home/${user}/conda"
 
     exec { "install-conda-${prefix}":
         command   => "${installer_path} -p ${prefix} -b",
         unless    => "/usr/bin/test -f ${prefix}/bin/python",
         timeout   => 300, # 5 minutes, worst case
         logoutput => 'on_failure',
+        user      => $user,
     }
 }

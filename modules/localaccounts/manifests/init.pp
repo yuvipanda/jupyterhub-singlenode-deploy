@@ -50,8 +50,7 @@ class localaccounts(
     }
 
     if $userinstall == 'conda' {
-        $conda_paths = map($regular_users + $root_users) |$u| { "/home/${u}/conda"}
-
-        conda::install { $conda_paths: }
+        conda::userinstall { $regular_users: }
+        conda::userinstall { $root_users: }
     }
 }
