@@ -90,4 +90,11 @@ define jupyterhub::hub {
         hubname => $name,
         content => "c.JupyterHub.ip = '0.0.0.0'"
     }
+
+    $whitelisted_users = hiera('accounts::users', []) + hiera('accounts::roots', [])
+    # Whitelist users
+    jupyterhub::config { 'users-whitelist':
+        hubname => $name,
+        content => template('jupyterhub/users-whitelist.erb'),
+    }
 }

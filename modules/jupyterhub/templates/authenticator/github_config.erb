@@ -1,0 +1,7 @@
+# Sets up GitHub Authentication
+
+c.JupyterHub.authenticator_class = 'oauthenticator.GitHubOAuthenticator'
+
+c.GitHubOAuthenticator.oauth_callback_url = '<%= @callback_url %>'
+c.GitHubOAuthenticator.client_id = '<%= @client_id %>'
+c.GitHubOAuthenticator.client_secret = '<%= @client_secret %>'

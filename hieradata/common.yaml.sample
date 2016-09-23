@@ -7,7 +7,7 @@ accounts::users:
 # All user accounts with root sudo privs. These people will be able to
 # execute any commands as root, in addition to being able to login to
 # JupyterHub
-account::roots:
+accounts::roots:
   - aculich
 
 # Specify configuration for the various jupyterhub instances on this
@@ -17,5 +17,8 @@ jupyterhubs:
     spawner: systemd # Spawner to Use
     spawner_settings: # Various spawner settings
       mem_limit: 2G # Memory Limit for each user
-    authenticator: dummy # Authenticator
-    authenticator_settings: {} # Various authenticator settings
+    authenticator: github # Authenticator
+    authenticator_settings:
+      callback_url: http://localhost:8000/hub/oauth_callback
+      client_id: 0e15eb10957f9abdb9ab
+      client_secret: fd1cc98ec69a19d6f62a1ac0bb6398b237154fa5
