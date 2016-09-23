@@ -23,4 +23,12 @@ define conda::userinstall(
         logoutput => 'on_failure',
         user      => $user,
     }
+
+    # Install jupyterhub using pip on the conda install too,
+    # so we have access to jupyterhub-singleuser
+    # FIXME: Make sure this gets upgraded in sync with the parent jupytehrub
+    python::pip_package { "${user}-jupyterhub":
+        venv_path => "${prefix}",
+        package   => "jupyterhub",
+    }
 }

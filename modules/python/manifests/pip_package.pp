@@ -4,11 +4,11 @@ define python::pip_package(
     $package = $name
 ) {
 
-    exec { "pip_install-${name}":
+    # FIXME: Make this actually be useful
+    exec { "pip-install-${name}":
         command => "${venv_path}/bin/pip install ${package}",
-        unless  => "${venv_path}/bin/pip freeze | grep -i -e '^${name}=='",
+        unless  => "${venv_path}/bin/pip freeze | grep -i -e '^${package}=='",
         user    => 'root',
         group   => 'root',
-        require => Python::Virtualenv[$venv_path],
     }
 }
