@@ -1,10 +1,7 @@
 node default {
-    jupyterhub::hub { 'test': }
-    jupyterhub::authenticator::dummy { 'test': }
-    jupyterhub::spawner::simple { 'test': }
+    create_resources(jupyterhub, hiera('jupyterhubs'))
 
     class { 'localaccounts':
         userinstall => 'conda',
     }
-    include conda::installer
 }

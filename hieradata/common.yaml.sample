@@ -3,9 +3,19 @@
 # All non-root user accounts. These people will be able to login to
 # JupyterHub using the configured authenticator.
 accounts::users:
-  - aculich
+  - yuvipanda
 # All user accounts with root sudo privs. These people will be able to
 # execute any commands as root, in addition to being able to login to
 # JupyterHub
-accounts::roots:
-  - yuvipanda
+account::roots:
+  - aculich
+
+# Specify configuration for the various jupyterhub instances on this
+# deployment.
+jupyterhubs:
+  test: # Name of JupyterHub!
+    spawner: systemd # Spawner to Use
+    spawner_settings: # Various spawner settings
+      mem_limit: 2G # Memory Limit for each user
+    authenticator: dummy # Authenticator
+    authenticator_settings: {} # Various authenticator settings
