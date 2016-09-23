@@ -11,6 +11,7 @@
 define jupyterhub::spawner::systemd(
     $hubname = $name,
     $userinstall = 'conda',
+    $mem_limit = undef,
 ) {
 
     include jupyterhub::base
@@ -38,5 +39,13 @@ define jupyterhub::spawner::systemd(
             hubname => $hubname,
             content => "c.SystemdSpawner.extra_paths = ['/home/{USERNAME}/conda/bin']"
         }
+    }
+
+    if $mem_limit {
+        jupyterhub::config { 'memory-limit':
+            hubname => $hubname,
+            content => "c.SystemdSpawner.mem_limit = '${mem_limit}'"
+        }
+
     }
 }
