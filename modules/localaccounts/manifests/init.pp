@@ -50,7 +50,12 @@ class localaccounts(
     }
 
     if $userinstall == 'conda' {
-        conda::userinstall { $regular_users: }
-        conda::userinstall { $root_users: }
+        $all_users = $regular_users + $root_users
+        conda::userinstall { $all_users:
+            require => [
+                User[$regular_users],
+                User[$root_users],
+            ]
+        }
     }
 }
