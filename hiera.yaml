@@ -3,6 +3,6 @@
 :yaml:
   :datadir: "%{::puppetdir}/hieradata"
 :hierarchy:
-  - common
+  - config
   - "host/%{::fqdn}"
 :logger: console
