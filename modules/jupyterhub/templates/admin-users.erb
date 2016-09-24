@@ -1,0 +1,4 @@
+# Admins have root on the machine, and hence should be considered
+# to have access to all the things you do on it.
+c.JupyterHub.admin_access = True
+c.Authenticator.admin_users = { <% @whitelisted_users.each do |u| %>'<%= u %>', <% end %>}
