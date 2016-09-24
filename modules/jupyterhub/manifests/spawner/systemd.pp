@@ -29,6 +29,11 @@ define jupyterhub::spawner::systemd(
         content => "c.JupyterHub.spawner_class = 'systemdspawner.SystemdSpawner'",
     }
 
+    jupyterhub::config { "${hubname}-unit-name":
+        hubname => $hubname,
+        content => "c.SystemdSpawner.unit_name_template = 'jupyter-${hubname}-{USERID}-singleuser'",
+    }
+
     if $userinstall == 'conda' {
         jupyterhub::config { 'conda-user-install':
             hubname => $hubname,
