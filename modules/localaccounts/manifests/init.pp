@@ -46,6 +46,7 @@ class localaccounts(
     }
 
     user { $root_users:
+        managehome => true,
         groups => [$group, 'sudo'],
     }
 
