@@ -69,38 +69,42 @@ define jupyterhub::hub {
         require => Python::Virtualenv[$venv_path]
     }
 
-    exec { 'make-configproxy_auth_token':
+    exec { "${name}-make-configproxy_auth_token":
         command => "/bin/echo CONFIGPROXY_AUTH_TOKEN=`/usr/bin/pwgen --secure -1 64` > ${venv_path}/configproxy_auth_token",
         creates => "${venv_path}/configproxy_auth_token",
     }
 
     file { "${venv_path}/config.d":
-        ensure => directory,
-        owner  => 'root',
-        group  => 'root',
-        mode   => '0750',
+        ensure  => directory,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0750',
+        # Purge any config files we didn't explicitly put in there
+        # DEATH TO MANUAL SSH BASED MODIFICATIONS
+        recurse => true,
+        purge   => true,
     }
 
-    jupyterhub::config { 'proxy':
+    jupyterhub::config { "${name}-proxy":
         hubname => $name,
         content => "c.JupyterHub.proxy_cmd = '${venv_path}/bin/nchp'"
     }
 
-    jupyterhub::config { 'listen':
+    jupyterhub::config { "${name}-listen":
         hubname => $name,
         content => "c.JupyterHub.ip = '0.0.0.0'"
     }
 
     # Whitelist users
     $whitelisted_users = hiera('accounts::users', []) + hiera('accounts::roots', [])
-    jupyterhub::config { 'users-whitelist':
+    jupyterhub::config { "${name}-users-whitelist":
         hubname => $name,
         content => template('jupyterhub/users-whitelist.erb'),
     }
 
     # Setup roots to be admin users
     $admin_users = hiera('accounts::roots')
-    jupyterhub::config { 'users-whitelist':
+    jupyterhub::config { "${name}-admin-users":
         hubname => $name,
         content => template('jupyterhub/admin-users.erb'),
     }
