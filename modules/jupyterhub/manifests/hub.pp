@@ -108,4 +108,13 @@ define jupyterhub::hub {
         hubname => $name,
         content => template('jupyterhub/admin-users.erb'),
     }
+
+    # Do not shut down singleuser services when we restart hub
+    # This would be pretty bad, since we restart the hub often
+    jupyterhub::config { "${name}-nosingleuser-kill":
+        hubname => $name,
+        content => "c.JupyterHub.cleanup_servers = False",
+    }
+
+
 }
