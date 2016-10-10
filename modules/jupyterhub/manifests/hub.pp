@@ -72,6 +72,9 @@ define jupyterhub::hub {
     exec { "${name}-make-configproxy_auth_token":
         command => "/bin/echo CONFIGPROXY_AUTH_TOKEN=`/usr/bin/pwgen --secure -1 64` > ${venv_path}/configproxy_auth_token",
         creates => "${venv_path}/configproxy_auth_token",
+        umask   => '0377',
+        user    => 'root',
+        group   => 'root',
     }
 
     # We generate our own cookie secret, since the hub can't actually write to $venv_path
@@ -83,6 +86,9 @@ define jupyterhub::hub {
     exec { "${name}-make-cookie-secret":
         command => "/usr/bin/pwgen --secure -1 128 > ${venv_path}/jupyterhub_cookie_secret",
         creates => "${venv_path}/jupyterhub_cookie_secret",
+        umask   => '0377',
+        user    => 'root',
+        group   => 'root',
     }
 
     file { "${venv_path}/config.d":
