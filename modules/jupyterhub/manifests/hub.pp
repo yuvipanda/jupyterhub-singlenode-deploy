@@ -74,6 +74,17 @@ define jupyterhub::hub {
         creates => "${venv_path}/configproxy_auth_token",
     }
 
+    # We generate our own cookie secret, since the hub can't actually write to $venv_path
+    # FIXME: JupyterHub by default writes out a 2048 character(?) secret file, but since
+    # this is just a sha256 HMAC, anything more than 512bits isn't useful, since it will be
+    # hashed down to that value. http://security.stackexchange.com/a/96176 for more info.
+    # A 128 char key is definitely 'safe enough', but let's co-ordinate with JupyterHub
+    # upstream to end up at a common value.
+    exec { "${name}-make-cookie-secret":
+        command => "/usr/bin/pwgen --secure -1 128 > ${venv_path}/jupyterhub_cookie_secret",
+        creates => "${venv_path}/jupyterhub_cookie_secret",
+    }
+
     file { "${venv_path}/config.d":
         ensure  => directory,
         owner   => 'root',
