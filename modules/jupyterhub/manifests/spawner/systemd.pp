@@ -21,7 +21,7 @@ define jupyterhub::spawner::systemd(
     python::pip_package { 'jupyterhub-systemdspawner':
         ensure    => present,
         venv_path => "${base_dir}/${hubname}",
-        package   => 'git+https://github.com/jupyterhub/systemdspawner.git@master'
+        source    => 'git+https://github.com/jupyterhub/systemdspawner.git@master'
     }
 
     jupyterhub::config { 'systemdspawner':

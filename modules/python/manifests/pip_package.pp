@@ -1,12 +1,18 @@
 define python::pip_package(
     $ensure = present,
     $venv_path,
-    $package = $name
+    $package = $name,
+    $source = undef
 ) {
 
+    if $source == undef {
+        $install_source = $package
+    } else {
+        $install_source = $source
+    }
     # FIXME: Make this actually be useful
     exec { "pip-install-${name}":
-        command => "${venv_path}/bin/pip install ${package}",
+        command => "${venv_path}/bin/pip install ${install_source}",
         unless  => "${venv_path}/bin/pip freeze | grep -i -e '^${package}=='",
         user    => 'root',
         group   => 'root',

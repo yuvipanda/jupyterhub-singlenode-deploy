@@ -24,7 +24,7 @@ define jupyterhub::hub {
 
     python::pip_package { 'nchp':
         venv_path => $venv_path,
-        package   => 'git+https://github.com/yuvipanda/jupyterhub-nginx-chp.git@accesslog',
+        source    => 'git+https://github.com/yuvipanda/jupyterhub-nginx-chp.git@accesslog',
     }
 
     $service_name = "jupyterhub-${name}"
