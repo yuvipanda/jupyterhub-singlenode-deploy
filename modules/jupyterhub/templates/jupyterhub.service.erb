@@ -5,6 +5,10 @@ Description=JupyterHub <%= @name %>
 ExecStart=<%= @venv_path %>/bin/jupyterhub --no-ssl --config <%= @venv_path %>/bootstrap_config.py
 WorkingDirectory=<%= @venv_path %>
 EnvironmentFile=<%= @venv_path %>/configproxy_auth_token
+PrivateTmp=yes
+PrivateDevices=yes
+ReadOnlyDirectories=/
+ReadWriteDirectories=<%= @venv_path %>/data
 
 [Install]
 WantedBy=multi-user.target

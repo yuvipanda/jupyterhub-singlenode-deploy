@@ -85,6 +85,21 @@ define jupyterhub::hub {
         purge   => true,
     }
 
+    # Isolate all the things that we'll need to *write* to into this dir.
+    # This allows us to restrict our readwrite access for the hub process into just this
+    file { "${venv_path}/data":
+        ensure => directory,
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0700',
+    }
+
+    jupyterhub::config { "${name}-db":
+        hubname => $name,
+        content => "c.JupyterHub.db_url = 'sqlite:///${venv_path}/data/data.sqlite'",
+        require => File["${venv_path}/data"],
+    }
+
     jupyterhub::config { "${name}-proxy":
         hubname => $name,
         content => "c.JupyterHub.proxy_cmd = '${venv_path}/bin/nchp'"
@@ -115,6 +130,4 @@ define jupyterhub::hub {
         hubname => $name,
         content => "c.JupyterHub.cleanup_servers = False",
     }
-
-
 }
