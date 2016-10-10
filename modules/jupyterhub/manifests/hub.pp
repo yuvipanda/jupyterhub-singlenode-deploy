@@ -75,6 +75,10 @@ define jupyterhub::hub {
         umask   => '0377',
         user    => 'root',
         group   => 'root',
+        notify  => [
+            Service["nchp-${name}"],
+            Service["jupyterhub-${name}"],
+        ],
     }
 
     # We generate our own cookie secret, since the hub can't actually write to $venv_path
@@ -89,6 +93,7 @@ define jupyterhub::hub {
         umask   => '0377',
         user    => 'root',
         group   => 'root',
+        notify  => Service["jupyterhub-${name}"],
     }
 
     file { "${venv_path}/config.d":
