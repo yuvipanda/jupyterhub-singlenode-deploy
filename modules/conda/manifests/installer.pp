@@ -22,7 +22,7 @@ class conda::installer(
 
     $path = "${dest_dir}/${version}.sh"
 
-    ensure_packages('wget')
+    ensure_packages('wget', 'bzip2')
 
     file { $dest_dir:
         ensure => directory,
