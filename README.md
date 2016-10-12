@@ -44,6 +44,12 @@ Right now, you can check it out by doing the following:
 
 1. Create a new VM running Ubuntu 16.04
 2. Clone this repository to the VM
-3. Run `sudo ./apply.bash`
+   ```bash
+   git clone --recursive https://github.com/yuvipanda/jupyterhub-singlenode-deploy.git
+   ```
+
+   The `--recursive` is necessary for initializing the puppet modules we use as git submodules
+3. Copy `hieradata/config.yaml.sample` to `hieradata/config.yaml`, and modify it to fit your needs
+4. Run `sudo ./apply.bash` inside the `jupyterhub-singlenode-deploy` dir!
 
 This will setup a basic jupyterhub. We will eventually add configuration with hiera.
