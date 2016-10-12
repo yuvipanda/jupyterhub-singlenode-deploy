@@ -52,4 +52,4 @@ Right now, you can check it out by doing the following:
 3. Copy `hieradata/config.yaml.sample` to `hieradata/config.yaml`, and modify it to fit your needs
 4. Run `sudo ./apply.bash` inside the `jupyterhub-singlenode-deploy` dir!
 
-This will setup a basic jupyterhub. We will eventually add configuration with hiera.
+This will setup a basic jupyterhub.
