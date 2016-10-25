@@ -44,6 +44,13 @@ define jupyterhub::spawner::systemd(
             hubname => $hubname,
             content => "c.SystemdSpawner.extra_paths = ['/home/{USERNAME}/conda/bin']"
         }
+    } else {
+        # FIXME! How do I deal with this now? hmpf
+        # Hacked in for THW
+        jupyterhub::config { 'hub-venv-notebook':
+            hubname => $hubname,
+            content => "c.SystemdSpawner.cmd = ['/srv/uservenv/bin/jupyterhub-singleuser']"
+        }
     }
 
     if $mem_limit {

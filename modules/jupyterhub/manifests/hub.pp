@@ -6,7 +6,12 @@
 #
 # [*title*]
 #  The name of the JupyterHub installation
-define jupyterhub::hub {
+# [*whitelist_users*]
+#  Only allow whitelisted users to log in.
+#  Defaults to True.
+define jupyterhub::hub(
+    $whitelist_users = True,
+) {
     require jupyterhub::base
 
     $base_dir = $::jupyterhub::base::dir
@@ -132,11 +137,13 @@ define jupyterhub::hub {
         content => "c.JupyterHub.ip = '0.0.0.0'"
     }
 
-    # Whitelist users
-    $whitelisted_users = hiera('accounts::users', []) + hiera('accounts::roots', [])
-    jupyterhub::config { "${name}-users-whitelist":
-        hubname => $name,
-        content => template('jupyterhub/users-whitelist.erb'),
+    if $whitelist_users {
+        # Whitelist users
+        $whitelisted_users = hiera('accounts::users', []) + hiera('accounts::roots', [])
+        jupyterhub::config { "${name}-users-whitelist":
+            hubname => $name,
+            content => template('jupyterhub/users-whitelist.erb'),
+        }
     }
 
     # Setup roots to be admin users

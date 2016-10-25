@@ -1,0 +1,10 @@
+from firstuseauthenticator import FirstUseAuthenticator
+from jupyterhub.auth import LocalAuthenticator
+
+class LocalFirstUseAuthenticator(FirstUseAuthenticator, LocalAuthenticator):
+    pass
+
+c.JupyterHub.authenticator_class = LocalFirstUseAuthenticator
+
+c.LocalFirstUseAuthenticator.create_system_users = True
+c.LocalFirstUseAuthenticator.dbm_path = '<%= @base_dir %>/<%= @hubname %>/data/passwords.dbm'

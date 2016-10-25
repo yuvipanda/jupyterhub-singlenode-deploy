@@ -1,11 +1,14 @@
 define jupyterhub(
+    $whitelist_users=true,
     $spawner='systemd',
     $spawner_settings={},
     $authenticator='dummy',
     $authenticator_settings={},
 ) {
 
-    jupyterhub::hub { $name: }
+    jupyterhub::hub { $name:
+        whitelist_users => $whitelist_users,
+    }
 
     $spawner_define = "jupyterhub::spawner::${spawner}"
     create_resources($spawner_define, {
