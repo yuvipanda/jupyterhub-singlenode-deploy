@@ -34,8 +34,9 @@ define jupyterhub::hub {
     }
 
     service { $service_name:
-        ensure  => running,
-        require => Systemd::Unit_file[$service_name],
+        ensure   => running,
+        require  => Systemd::Unit_file[$service_name],
+        provider => systemd,
     }
 
     $nchp_service_name = "nchp-${name}"
@@ -45,8 +46,9 @@ define jupyterhub::hub {
     }
 
     service { $nchp_service_name:
-        ensure  => running,
-        require => Systemd::Unit_file[$nchp_service_name],
+        ensure   => running,
+        require  => Systemd::Unit_file[$nchp_service_name],
+        provider => systemd,
     }
 
     file { "${venv_path}/nchp_config.py":

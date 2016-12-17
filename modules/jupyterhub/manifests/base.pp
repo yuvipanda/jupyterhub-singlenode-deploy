@@ -39,7 +39,8 @@ class jupyterhub::base(
 
     # To prevent the nginx from autostarting after install
     service { 'nginx':
-        ensure => stopped,
+        ensure   => stopped,
+        provider => systemd,
     }
 
     # For generating CONFIGPROXY_AUTH_TOKEN
