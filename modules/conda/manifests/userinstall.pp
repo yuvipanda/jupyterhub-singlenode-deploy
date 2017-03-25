@@ -31,4 +31,11 @@ define conda::userinstall(
         venv_path => "${prefix}",
         package   => "jupyterhub",
     }
+
+    # JupyterHub 0.7.2 seems to depend on too old a version of traitlets
+    python::pip_package { "${user}-traitlets":
+        venv_path => "${prefix}",
+        package   => "traitlets",
+        version   => '4.3.2'
+    }
 }
