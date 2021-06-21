@@ -1,4 +1,4 @@
-**Archived**: Use [TLJH](https://tljh.jupyter.org]
+**Archived**: Use [TLJH](https://tljh.jupyter.org)
 
 # JupyterHub Single Node Deployment #
 
