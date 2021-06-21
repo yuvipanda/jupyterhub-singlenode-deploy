@@ -1,3 +1,5 @@
+**Archived**: Use [TLJH](https://tljh.jupyter.org]
+
 # JupyterHub Single Node Deployment #
 
 Provide a very easy way to setup (and maintain) a JupyterHub that exists on only one node. 
